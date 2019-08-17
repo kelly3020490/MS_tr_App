@@ -43,7 +43,7 @@ public class Home extends AppCompatActivity {
             return "0" + String.valueOf(day);
         }
     }
-    public void onstudentRecord(View view){
+    public void onroolcall(View view){
         Intent intent = new Intent(this,studentRecord.class);
         startActivity(intent);
 
@@ -58,27 +58,27 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void onschoolbus(View view){
+    public void onschoolcar(View view){
         Intent intent = new Intent(this,SchoolBus.class);
         startActivity(intent);
 
     }
-    public void oncs_qrcode(View view){
+    public void onc_qrcode(View view){
         Intent intent = new Intent(this,CS_QRcode.class);
         startActivity(intent);
 
     }
-    public void onls_qrcode(View view){
+    public void onl_qrcode(View view){
         Intent intent = new Intent(this,LS_QRcode.class);
         startActivity(intent);
 
     }
-    public void onlist(View view){
+    public void onmemo(View view){
         Intent intent = new Intent(this,List.class);
         startActivity(intent);
 
     }
-    public void onschedule(View view){
+    public void ont_schedule(View view){
         Intent intent = new Intent(this,Schedule.class);
         startActivity(intent);
 
