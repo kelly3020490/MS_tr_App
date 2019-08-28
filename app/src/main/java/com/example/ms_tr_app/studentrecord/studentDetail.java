@@ -36,9 +36,6 @@ public class studentDetail extends AppCompatActivity {
         String url = Util.URL + "StudentServlet";
         String st_num = student.getSt_num();
 
-//        String cs_name = cs.getCs_num();
-//        String  gd_name = guardian.getGd_name();
-
 
         int imageSize = getResources().getDisplayMetrics().widthPixels * 2;
         Bitmap bitmap = null;

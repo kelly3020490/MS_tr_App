@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ms_tr_app">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".studentrecord.studentDetail"></activity>
+        <activity android:name=".info.Info_detail"></activity>
+        <activity android:name=".studentrecord.studentDetail" />
         <activity
             android:name=".schedule.Schedule"
             android:label="@string/app_name_tr_schedule"
@@ -55,5 +53,8 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
