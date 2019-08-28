@@ -8,5 +8,7 @@
     <color name="skyblue">#6ACBF7</color>
     <color name="orange">#F1C131</color>
     <color name="purple">#A678F8</color>
+    <color name="red">#F81920</color>
+    <color name="lightgreen">#76FA6D</color>
 
 </resources>

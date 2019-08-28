@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".studentRecord">
+    tools:context=".studentrecord.studentRecord">
 
     <include
-        android:id="@+id/include"
-        layout="@layout/app_bar_main"
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main" />
+
+    <TextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:text="班級："
+        android:textSize="25dp" />
+
+    <Spinner
+        android:id="@+id/spClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/toolbar"
+        android:layout_marginLeft="10dp"
+        android:layout_toLeftOf="@+id/btSearch"
+
+        android:layout_toRightOf="@+id/tvClass" />
+
+    <Button
+        android:id="@+id/btSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvClass"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:onClick="onSearch"
+        android:text="查詢" />
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_height="30dp"
+        android:layout_alignRight="@+id/btSearch"
+        android:layout_below="@+id/btSearch"
+        android:text="幼童名單"
+        android:textSize="15dp"
+        android:textColor="#FF0000"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:scrollbars="vertical"/>
 
 
-    <include
-        layout ="@layout/toolbar_main"
-        android:id="@+id/toolbar" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--<include-->
+        <!--android:id="@+id/include"-->
+        <!--layout="@layout/app_bar_main"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:layout_editor_absoluteX="16dp"-->
+        <!--tools:layout_editor_absoluteY="0dp" />-->
+
+
+</RelativeLayout>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MS_tr_App</string>
-    <string name="app_name_student_record">點名紀錄</string>
+    <string name="app_name_student_record">幼童通訊錄</string>
     <string name="app_name_school_book">親子聯絡簿</string>
     <string name="app_name_medicine">餵藥</string>
     <string name="app_name_school_bus">幼童車即時位置</string>
@@ -9,7 +9,7 @@
     <string name="app_name_list">待辦清單</string>
     <string name="app_name_tr_schedule">班表</string>
     <string name="app_name_home">首頁</string>
-    <string name="app_name_info">最新消息</string>
+    <string name="app_name_info">園所資訊</string>
     <string name="app_name_calendar">行事曆</string>
     <string name="app_name_more">更多</string>
 
@@ -22,4 +22,5 @@
     <string name="title_calendar">行事曆</string>
     <string name="title_more">更多</string>
     <string name="text_tvDateTime">Current date and time</string>
+    <string name="msg_NoNetwork">沒有可用的網絡連接</string>
 </resources>

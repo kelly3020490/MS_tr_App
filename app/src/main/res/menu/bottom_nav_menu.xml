@@ -12,7 +12,7 @@
 
 
     <item
-        android:id="@+id/navigation_calendar"
+        android:id="@+id/navigation_school_calendar"
         android:icon="@drawable/school_calendar"
         android:title="@string/title_calendar" />
 
