@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ms_tr_app.R;
+import com.example.ms_tr_app.guardian.Guardian;
 import com.example.ms_tr_app.main.Util;
 import com.example.ms_tr_app.task.ImageTask;
 
@@ -23,15 +24,16 @@ public class studentDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
         studentRecordVO student = (studentRecordVO) this.getIntent().getSerializableExtra("student");
+        Guardian guardian = (Guardian)this.getIntent().getSerializableExtra("guardian");
         if (student == null) {
             Util.showToast(this, "找不到該班幼童通訊錄");
         } else {
-            showDetail(student);
+            showDetail(student,guardian);
         }
 
     }
 
-    public void showDetail(studentRecordVO student) {
+    public void showDetail(studentRecordVO student,Guardian guardian) {
         ImageView imageView = findViewById(R.id.ivStudentDetail);
         String url = Util.URL + "StudentServlet";
         String st_num = student.getSt_num();
@@ -59,8 +61,8 @@ public class studentDetail extends AppCompatActivity {
                         + "性別：" + student.getSt_gender() + "\n"
                         + "生日：" + date.format(student.getSt_birthday()) + "\n"
                         + "身分證：" + student.getSt_id() + "\n"
-                        + "監護人：" + student.getGd_name() + "\n"
-                        + "聯絡電話：" + student.getGd_phone() + "\n"
+                        + "監護人：" + guardian.getGd_name() + "\n"
+                        + "聯絡電話：" + guardian.getGd_phone() + "\n"
                         + "戶籍地址：" + student.getSt_r_address() + "\n"
                         + "住址：" + student.getSt_address() + "\n";
 //

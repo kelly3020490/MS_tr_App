@@ -71,7 +71,8 @@
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tr_job"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="職稱"
                     android:textSize="18dp"
@@ -112,6 +113,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"></LinearLayout>
             <TextView
+                android:id="@+id/tr_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -131,6 +133,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3">
             <ImageView
+                android:id="@+id/tr_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/midori"/>

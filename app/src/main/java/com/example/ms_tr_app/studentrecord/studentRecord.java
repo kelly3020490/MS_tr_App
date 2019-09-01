@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,10 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ms_tr_app.R;
 import com.example.ms_tr_app.cs._Class;
+import com.example.ms_tr_app.guardian.Guardian;
 import com.example.ms_tr_app.main.Util;
 import com.example.ms_tr_app.task.ClassTask;
 import com.example.ms_tr_app.task.CommonTask;
 import com.example.ms_tr_app.task.ImageTask;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -37,7 +38,7 @@ import java.util.List;
 public class studentRecord extends AppCompatActivity {
     private static final String TAG = "studentRecord";
     private RecyclerView rvStudents;
-    private CommonTask getStudentTask;
+    private CommonTask getStudentTask, getGuardianTask;
     private ImageTask studentImageTask;
     private ClassTask classTask;
     private Spinner spClass;
@@ -50,8 +51,8 @@ public class studentRecord extends AppCompatActivity {
         setContentView(R.layout.activity_student_record);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
 
         spClass = findViewById(R.id.spClass);
         rvStudents = findViewById(R.id.rvStudents);
@@ -97,20 +98,31 @@ public class studentRecord extends AppCompatActivity {
     }
 
     private void updateUI(String jsonOut) {
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         getStudentTask = new CommonTask(Util.URL + "StudentServlet", jsonOut);
         List<studentRecordVO> studentList = null;
+        List<Guardian> guardianList = null;
         try {
             String jsonIn = getStudentTask.execute().get();
             Type listType = new TypeToken<List<studentRecordVO>>() {
+            }.getType();  //利用Type轉成自己需要的型態
+            studentList = gson.fromJson(jsonIn, listType);  //接收傳入的學生資料集合
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getByGd_Id");
+            jsonObject.addProperty("students", gson.toJson(studentList)); //將學生資料集合送出
+            getGuardianTask = new CommonTask(Util.URL + "GuardianServlet", jsonObject.toString());
+            String guardIn = getGuardianTask.execute().get();
+            Type type = new TypeToken<List<Guardian>>() {
             }.getType();
-            studentList = new GsonBuilder().setDateFormat("yyyy-MM-dd").create().fromJson(jsonIn, listType);
+            guardianList = gson.fromJson(guardIn, type);//接收傳入的家長資料集合
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
         if (studentList == null || studentList.isEmpty()) {
             Util.showToast(this, "找不到該班幼童通訊錄");
         } else {
-            rvStudents.setAdapter(new StudentListAdapter(this, studentList));
+            rvStudents.setAdapter(new StudentListAdapter(this, studentList, guardianList));
         }
     }
 
@@ -118,13 +130,14 @@ public class studentRecord extends AppCompatActivity {
         private Context context;
         private LayoutInflater layoutInflater;
         private List<studentRecordVO> studentList;
+        private List<Guardian> guardianList;
         private int imageSize;
 
-        StudentListAdapter(Context context, List<studentRecordVO> studentList) {
+        StudentListAdapter(Context context, List<studentRecordVO> studentList, List<Guardian> guardianList) {
             this.context = context;
             layoutInflater = LayoutInflater.from(context);
             this.studentList = studentList;
-
+            this.guardianList = guardianList;
             imageSize = getResources().getDisplayMetrics().widthPixels / 4;
 
         }
@@ -151,19 +164,25 @@ public class studentRecord extends AppCompatActivity {
 
         public void onBindViewHolder(MyViewHolder holder,int position){
             final studentRecordVO student = studentList.get(position);
+            final Guardian guardian = guardianList.get(position);
+
+
             String url = Util.URL + "StudentServlet";
             String st_num = student.getSt_num();
+
+
             studentImageTask = new ImageTask(url,st_num,imageSize,holder.ivPicture);
             studentImageTask.execute();
 
             holder.tvName.setText("姓名：".concat(student.getSt_name()));
             holder.tvSt_num.setText("學號：".concat(student.getSt_num()));
-            holder.tvGd_name.setText("監護人：".concat(student.getGd_name()));
+            holder.tvGd_name.setText("監護人：".concat(guardian.getGd_name()));
             holder.itemView.setOnClickListener(new View.OnClickListener(){
 
                 public void onClick(View view){
                     Intent intent = new Intent(studentRecord.this,studentDetail.class);
                     intent.putExtra("student",student);
+                    intent.putExtra("guardian", guardian);
                     startActivity(intent);
                 }
             });
@@ -185,6 +204,9 @@ public class studentRecord extends AppCompatActivity {
         if(classTask != null){
             classTask.cancel(true);
         }
+
+
+
 
     }
 
